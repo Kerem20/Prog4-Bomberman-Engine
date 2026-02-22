@@ -70,7 +70,8 @@ dae::Minigin::Minigin(const std::filesystem::path& dataPath)
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
-
+	
+	// Initialize the Renderer and ResourceManager with the created window and data path.
 	Renderer::GetInstance().Init(g_window);
 	ResourceManager::GetInstance().Init(dataPath);
 }
@@ -85,8 +86,10 @@ dae::Minigin::~Minigin()
 
 void dae::Minigin::Run(const std::function<void()>& load)
 {
+	//Run function passed, this is in our case the function that creates the first scene.
 	load();
 #ifndef __EMSCRIPTEN__
+	// Main loop, runs until the InputManager detects a quit event.
 	while (!m_quit)
 		RunOneFrame();
 #else

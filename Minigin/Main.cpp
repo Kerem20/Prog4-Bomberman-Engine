@@ -14,6 +14,11 @@
 #include <filesystem>
 namespace fs = std::filesystem;
 
+/// <summary>
+/// This function is passed to the engine
+/// Is Called exactly once, in the engine's Run() function.
+/// Here you construct the first scene and populate it with some game objects.
+/// </summary>
 static void load()
 {
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
@@ -42,6 +47,7 @@ int main(int, char*[]) {
 	if(!fs::exists(data_location))
 		data_location = "../Data/";
 #endif
+	// Create the engine, pass the filepath to the Data folder of assets.
 	dae::Minigin engine(data_location);
 	engine.Run(load);
     return 0;

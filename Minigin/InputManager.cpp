@@ -9,7 +9,6 @@ bool dae::InputManager::ProcessInput()
 			return false;
 		}
 		if (e.type == SDL_EVENT_KEY_DOWN) {
-			
 		}
 		if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
 			
