@@ -3,6 +3,9 @@
 #include <functional>
 #include <filesystem>
 
+//Program includes
+#include "Clock.h"
+
 namespace dae
 {
 	class Minigin final

@@ -86,12 +86,16 @@ dae::Minigin::~Minigin()
 
 void dae::Minigin::Run(const std::function<void()>& load)
 {
+	dae::Clock::GetInstance().SetTargetFPS(60.0);
 	//Run function passed, this is in our case the function that creates the first scene.
 	load();
 #ifndef __EMSCRIPTEN__
 	// Main loop, runs until the InputManager detects a quit event.
-	while (!m_quit)
+	while (!m_quit)\
+	{
 		RunOneFrame();
+		SDL_Log("FPS: %.0f", dae::Clock::GetInstance().GetFPS());
+	}
 #else
 	emscripten_set_main_loop_arg(&LoopCallback, this, 0, true);
 #endif
@@ -99,7 +103,12 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 void dae::Minigin::RunOneFrame()
 {
+	auto& clock = Clock::GetInstance();
+	clock.StartFrame();
+    
 	m_quit = !InputManager::GetInstance().ProcessInput();
-	SceneManager::GetInstance().Update();
-	Renderer::GetInstance().Render();
+    SceneManager::GetInstance().Update(static_cast<float>(clock.GetDeltaTime()));
+    Renderer::GetInstance().Render();
+
+	clock.EndFrame();;
 }
