@@ -5,6 +5,11 @@
 
 dae::GameObject::~GameObject() = default;
 
+void dae::GameObject::FixedUpdate(float fixedDeltaTime)
+{
+	fixedDeltaTime;
+}
+
 void dae::GameObject::Update(float deltaTime)
 {
 	deltaTime;

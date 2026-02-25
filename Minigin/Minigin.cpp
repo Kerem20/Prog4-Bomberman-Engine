@@ -86,29 +86,34 @@ dae::Minigin::~Minigin()
 
 void dae::Minigin::Run(const std::function<void()>& load)
 {
-	dae::Clock::GetInstance().SetTargetFPS(60.0);
 	//Run function passed, this is in our case the function that creates the first scene.
 	load();
+
+	// FixedTimestep is for physics and other updates that require a fixed update rate.
+	const double fixedTimeStep = 1.0 / 60.0;
+	double accumulator = 0.0;
+
 #ifndef __EMSCRIPTEN__
 	// Main loop, runs until the InputManager detects a quit event.
 	while (!m_quit)\
 	{
-		RunOneFrame();
+		dae::Clock::GetInstance().StartFrame();
+
+		double deltaTime = Clock::GetInstance().GetDeltaTime();
+		accumulator += deltaTime;
+
+		m_quit = !InputManager::GetInstance().ProcessInput();
+
+		while (accumulator >= fixedTimeStep)
+		{
+			SceneManager::GetInstance().Update((float)fixedTimeStep);
+			accumulator -= fixedTimeStep;
+		}
+
+		Renderer::GetInstance().Render();
 		SDL_Log("FPS: %.0f", dae::Clock::GetInstance().GetFPS());
 	}
 #else
 	emscripten_set_main_loop_arg(&LoopCallback, this, 0, true);
 #endif
-}
-
-void dae::Minigin::RunOneFrame()
-{
-	auto& clock = Clock::GetInstance();
-	clock.StartFrame();
-    
-	m_quit = !InputManager::GetInstance().ProcessInput();
-    SceneManager::GetInstance().Update(static_cast<float>(clock.GetDeltaTime()));
-    Renderer::GetInstance().Render();
-
-	clock.EndFrame();;
 }

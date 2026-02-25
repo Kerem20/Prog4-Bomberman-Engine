@@ -21,6 +21,8 @@ namespace fs = std::filesystem;
 /// </summary>
 static void load()
 {
+	dae::Clock::GetInstance().Init();
+
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
 
 	auto go = std::make_unique<dae::GameObject>();
