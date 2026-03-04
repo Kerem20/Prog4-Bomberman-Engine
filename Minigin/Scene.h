@@ -15,7 +15,7 @@ namespace dae
 
 		void FixedUpdate(float fixedDeltaTime);
 		void Update(float deltaTime);
-		void Render() const;
+		void Render(float alpha) const;
 
 		~Scene() = default;
 		Scene(const Scene& other) = delete;

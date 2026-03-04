@@ -17,11 +17,11 @@ void dae::SceneManager::Update(float deltaTime)
 	}
 }
 
-void dae::SceneManager::Render()
+void dae::SceneManager::Render(float alpha)
 {
 	for (const auto& scene : m_scenes)
 	{
-		scene->Render();
+		scene->Render(alpha);
 	}
 }
 

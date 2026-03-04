@@ -95,7 +95,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 #ifndef __EMSCRIPTEN__
 	// Main loop, runs until the InputManager detects a quit event.
-	while (!m_quit)\
+	while (!m_quit)
 	{
 		dae::Clock::GetInstance().StartFrame();
 
@@ -106,12 +106,14 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 		while (accumulator >= fixedTimeStep)
 		{
-			SceneManager::GetInstance().Update((float)fixedTimeStep);
+			SceneManager::GetInstance().FixedUpdate((float)fixedTimeStep);
 			accumulator -= fixedTimeStep;
 		}
 
-		Renderer::GetInstance().Render();
-		SDL_Log("FPS: %.0f", dae::Clock::GetInstance().GetFPS());
+		const float alpha = static_cast<float>(accumulator / fixedTimeStep);
+
+		SceneManager::GetInstance().Update((float)deltaTime);
+		Renderer::GetInstance().Render(alpha);
 	}
 #else
 	emscripten_set_main_loop_arg(&LoopCallback, this, 0, true);

@@ -13,7 +13,7 @@ namespace dae
 	public:
 		virtual void FixedUpdate(float fixedDeltaTime);
 		virtual void Update(float deltaTime);
-		virtual void Render() const;
+		virtual void Render(float alpha) const;
 
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);

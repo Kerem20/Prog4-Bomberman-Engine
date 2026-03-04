@@ -30,8 +30,9 @@ void dae::TextObject::Update(float deltaTime)
 	}
 }
 
-void dae::TextObject::Render() const
+void dae::TextObject::Render(float alpha) const
 {
+	alpha;
 	if (m_textTexture != nullptr)
 	{
 		const auto& pos = m_transform.GetPosition();

@@ -15,8 +15,9 @@ void dae::GameObject::Update(float deltaTime)
 	deltaTime;
 }
 
-void dae::GameObject::Render() const
+void dae::GameObject::Render(float alpha) const
 {
+	alpha;
 	const auto& pos = m_transform.GetPosition();
 	Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
 }
