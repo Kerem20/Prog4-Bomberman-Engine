@@ -6,8 +6,9 @@
 namespace dae
 {
 	class Texture2D;
-	class GameObject 
+	class GameObject
 	{
+		bool m_markedForDeletion{ false };
 		Transform m_transform{};
 		std::shared_ptr<Texture2D> m_texture{};
 	public:
@@ -17,6 +18,9 @@ namespace dae
 
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
+
+		bool IsMarkedForDeletion() const { return m_markedForDeletion; }
+		void MarkForDeletion();
 
 		GameObject() = default;
 		virtual ~GameObject();

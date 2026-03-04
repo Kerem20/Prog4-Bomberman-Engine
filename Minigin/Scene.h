@@ -9,7 +9,7 @@ namespace dae
 	class Scene final
 	{
 	public:
-		void Add(std::unique_ptr<GameObject> object);
+		void AddGameObject(std::unique_ptr<GameObject> object);
 		void Remove(const GameObject& object);
 		void RemoveAll();
 
@@ -28,6 +28,10 @@ namespace dae
 		explicit Scene() = default;
 
 		std::vector < std::unique_ptr<GameObject>> m_objects{};
+		std::vector < std::unique_ptr<GameObject>> m_AddBuffer{};
+
+		void RemoveMarkedForDeletion();
+		void AddNewObjects();
 	};
 
 }
