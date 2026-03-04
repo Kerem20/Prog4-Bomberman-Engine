@@ -22,6 +22,12 @@ void dae::GameObject::Render(float alpha) const
 	Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
 }
 
+void dae::GameObject::DeleteComponent(const Component& component)
+{
+	//todo: check if component belongs to this gameobject, if not do nothing
+	component;
+}
+
 void dae::GameObject::SetTexture(const std::string& filename)
 {
 	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
