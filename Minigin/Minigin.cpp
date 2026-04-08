@@ -97,23 +97,25 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	// Main loop, runs until the InputManager detects a quit event.
 	while (!m_quit)
 	{
+		// TIMINGS:
 		dae::Clock::GetInstance().StartFrame();
+		accumulator += dae::Clock::GetInstance().GetDeltaTime();
 
-		double deltaTime = Clock::GetInstance().GetDeltaTime();
-		accumulator += deltaTime;
-
+		// INPUTS:
 		m_quit = !InputManager::GetInstance().ProcessInput();
 
+		// PHYSICS:
 		while (accumulator >= fixedTimeStep)
 		{
-			SceneManager::GetInstance().FixedUpdate((float)fixedTimeStep);
-			accumulator -= fixedTimeStep;
+			SceneManager::GetInstance().FixedUpdate();
+			accumulator = 0;
 		}
+		
+		// UPDATE:
+		SceneManager::GetInstance().Update();
 
-		const float alpha = static_cast<float>(accumulator / fixedTimeStep);
-
-		SceneManager::GetInstance().Update((float)deltaTime);
-		Renderer::GetInstance().Render(alpha);
+		// RENDERING:
+		Renderer::GetInstance().Render();
 	}
 #else
 	emscripten_set_main_loop_arg(&LoopCallback, this, 0, true);

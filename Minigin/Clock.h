@@ -18,8 +18,8 @@ namespace dae
 
         void StartFrame();
 
-        double GetDeltaTime() const { return m_DeltaTime; }
-        double GetFPS() const { return m_FPS; }
+        float GetDeltaTime() const { return m_DeltaTime; }
+        float GetFPS() const { return 1.f / m_DeltaTime; }
 
     private:
         friend class Singleton<Clock>;
@@ -30,7 +30,6 @@ namespace dae
         clock::time_point m_LastTime{};
         clock::time_point m_FrameStart{};
 
-        double m_DeltaTime{};
-        double m_FPS{};
+        float m_DeltaTime{};
     };
 }

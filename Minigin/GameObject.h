@@ -16,9 +16,9 @@ namespace dae
 		// new refactor
 		std::vector <std::unique_ptr<Component>> m_components{};
 	public:
-		virtual void FixedUpdate(float fixedDeltaTime);
-		virtual void Update(float deltaTime);
-		virtual void Render(float alpha) const;
+		virtual void FixedUpdate();
+		virtual void Update();
+		virtual void Render() const;
 
 		// new refactor
 		template<class T>
@@ -42,7 +42,7 @@ namespace dae
 	template<class T>
 	inline T& GameObject::AddComponent(T)
 	{
-		if (std::is_base_of_v<Component, T>) return;
+		if (!std::is_base_of_v<Component, T>) return;
 
 		auto component = new T(this);
 		m_components.emplace_back(std::move(component));

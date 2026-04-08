@@ -26,30 +26,30 @@ void Scene::RemoveAll()
 	m_objects.clear();
 }
 
-void dae::Scene::FixedUpdate(float fixedDeltaTime)
+void dae::Scene::FixedUpdate()
 {
 	for (auto& object : m_objects)
 	{
-		object->FixedUpdate(fixedDeltaTime);
+		object->FixedUpdate();
 	}
 }
 
-void Scene::Update(float deltaTime)
+void Scene::Update()
 {
 	for(auto& object : m_objects)
 	{
-		object->Update(deltaTime);
+		object->Update();
 	}
 
 	RemoveMarkedForDeletion();
 	AddNewObjects();
 }
 
-void Scene::Render(float alpha) const
+void Scene::Render() const
 {
 	for (const auto& object : m_objects)
 	{
-		object->Render(alpha);
+		object->Render();
 	}
 }
 

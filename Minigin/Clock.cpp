@@ -10,10 +10,8 @@ void dae::Clock::StartFrame()
 {
     m_FrameStart = clock::now();
 
-    std::chrono::duration<double> elapsed = m_FrameStart - m_LastTime;
+    std::chrono::duration<float> elapsed = m_FrameStart - m_LastTime;
     m_DeltaTime = elapsed.count();
 
     m_LastTime = m_FrameStart;
-
-    m_FPS = 1.0 / m_DeltaTime;
 }

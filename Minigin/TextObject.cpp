@@ -9,9 +9,8 @@ dae::TextObject::TextObject(const std::string& text, std::shared_ptr<Font> font,
 	: m_needsUpdate(true), m_text(text), m_color(color), m_font(std::move(font)), m_textTexture(nullptr)
 { }
 
-void dae::TextObject::Update(float deltaTime)
+void dae::TextObject::Update()
 {
-	deltaTime;
 	if (m_needsUpdate)
 	{
 		const auto surf = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), m_text.length(), m_color);
@@ -30,9 +29,8 @@ void dae::TextObject::Update(float deltaTime)
 	}
 }
 
-void dae::TextObject::Render(float alpha) const
+void dae::TextObject::Render() const
 {
-	alpha;
 	if (m_textTexture != nullptr)
 	{
 		const auto& pos = m_transform.GetPosition();
