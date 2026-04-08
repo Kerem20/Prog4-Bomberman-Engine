@@ -2,17 +2,12 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "GameObject.h"
 
 namespace dae
 {
 	class Scene final
 	{
 	public:
-		void AddGameObject(std::unique_ptr<GameObject> object);
-		void Remove(const GameObject& object);
-		void RemoveAll();
-
 		void FixedUpdate();
 		void Update();
 		void Render() const;
@@ -26,12 +21,6 @@ namespace dae
 	private:
 		friend class SceneManager;
 		explicit Scene() = default;
-
-		std::vector < std::unique_ptr<GameObject>> m_objects{};
-		std::vector < std::unique_ptr<GameObject>> m_AddBuffer{};
-
-		void RemoveMarkedForDeletion();
-		void AddNewObjects();
 	};
 
 }

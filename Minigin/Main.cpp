@@ -23,22 +23,22 @@ static void load()
 {
 	dae::Clock::GetInstance().Init();
 
-	auto& scene = dae::SceneManager::GetInstance().CreateScene();
+	//auto& scene = dae::SceneManager::GetInstance().CreateScene();
 
-	auto go = std::make_unique<dae::GameObject>();
-	go->SetTexture("background.png");
-	scene.AddGameObject(std::move(go));
+	//auto go = std::make_unique<dae::GameObject>();
+	//go->SetTexture("background.png");
+	//scene.AddGameObject(std::move(go));
 
-	go = std::make_unique<dae::GameObject>();
-	go->SetTexture("logo.png");
-	go->SetPosition(358, 180);
-	scene.AddGameObject(std::move(go));
+	//go = std::make_unique<dae::GameObject>();
+	//go->SetTexture("logo.png");
+	//go->SetPosition(358, 180);
+	//scene.AddGameObject(std::move(go));
 
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_unique<dae::TextObject>("Programming 4 Assignment", font);
-	to->SetColor({ 255, 255, 0, 255 });
-	to->SetPosition(292, 20);
-	scene.AddGameObject(std::move(to));
+	//auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	//auto to = std::make_unique<dae::TextObject>("Programming 4 Assignment", font);
+	//to->SetColor({ 255, 255, 0, 255 });
+	//to->SetPosition(292, 20);
+	//scene.AddGameObject(std::move(to));
 }
 
 int main(int, char*[]) {
