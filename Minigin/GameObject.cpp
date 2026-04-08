@@ -12,12 +12,21 @@ GameObject::GameObject(const glm::vec3& position)
 
 void GameObject::FixedUpdate()
 {
+	for (auto& com : m_components) {
+		com->FixedUpdate();
+	}
 }
 
 void GameObject::Update()
 {
+	for (auto& com : m_components) {
+		com->Update();
+	}
 }
 
 void GameObject::Render()
 {
+	for (auto& com : m_components) {
+		com->Render();
+	}
 }

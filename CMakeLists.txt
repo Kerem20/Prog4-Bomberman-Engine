@@ -10,7 +10,7 @@ if(EMSCRIPTEN)
   set(TARGET_PARAM )
 else()
   set(TARGET_NAME minigin)
-  set(TARGET_PARAM WIN32)
+  set(TARGET_PARAM )
 endif()
 
 # list source files here
@@ -27,7 +27,7 @@ add_executable(${TARGET_NAME} ${TARGET_PARAM}
   Minigin/TextObject.cpp
   Minigin/Texture2D.cpp
   Minigin/Transform.cpp
- "Minigin/Clock.h" "Minigin/Clock.cpp"    "Minigin/GameObject.h" "Minigin/GameObject.cpp")
+ "Minigin/Clock.h" "Minigin/Clock.cpp"    "Minigin/GameObject.h" "Minigin/GameObject.cpp" "Minigin/Component.h" "Minigin/Component.cpp")
 
 # enable c++20 features
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)

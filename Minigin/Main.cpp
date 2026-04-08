@@ -27,6 +27,7 @@ static void load()
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
 
 	auto go = std::make_unique<GameObject>();
+	go->AddComponent<Component>();
 
 	scene.AddGameObject(std::move(go));
 
