@@ -3,24 +3,30 @@
 #include <string>
 #include <vector>
 
+#include <GameObject.h>
+
 namespace dae
 {
 	class Scene final
 	{
 	public:
-		void FixedUpdate();
-		void Update();
-		void Render() const;
-
 		~Scene() = default;
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
 
+		void FixedUpdate();
+		void Update();
+		void Render() const;
+
+		void AddGameObject(std::unique_ptr<GameObject> gameObject);
+
 	private:
 		friend class SceneManager;
 		explicit Scene() = default;
+
+		std::vector<std::unique_ptr<GameObject>> m_gameObjects{};
 	};
 
-}
+};

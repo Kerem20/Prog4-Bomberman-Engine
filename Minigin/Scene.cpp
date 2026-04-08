@@ -2,16 +2,29 @@
 #include "Scene.h"
 #include <assert.h>
 
-using namespace dae;
-
 void dae::Scene::FixedUpdate()
 {
+	for (auto& go : m_gameObjects) {
+		go->FixedUpdate();
+	}
 }
 
-void Scene::Update()
+void dae::Scene::Update()
 {
+	for (auto& go : m_gameObjects) {
+		go->Update();
+	}
 }
 
-void Scene::Render() const
+void dae::Scene::Render() const
 {
+	for (auto& go : m_gameObjects) {
+		go->Render();
+	}
+}
+
+void dae::Scene::AddGameObject(std::unique_ptr<GameObject> gameObject)
+{
+	if (gameObject == nullptr) return;
+	m_gameObjects.emplace_back(std::move(gameObject));
 }

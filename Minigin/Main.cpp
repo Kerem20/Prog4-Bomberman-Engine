@@ -12,6 +12,7 @@
 #include "Scene.h"
 
 #include <filesystem>
+#include <GameObject.h>
 namespace fs = std::filesystem;
 
 /// <summary>
@@ -23,9 +24,13 @@ static void load()
 {
 	dae::Clock::GetInstance().Init();
 
-	//auto& scene = dae::SceneManager::GetInstance().CreateScene();
+	auto& scene = dae::SceneManager::GetInstance().CreateScene();
 
-	//auto go = std::make_unique<dae::GameObject>();
+	auto go = std::make_unique<GameObject>();
+
+	scene.AddGameObject(std::move(go));
+
+
 	//go->SetTexture("background.png");
 	//scene.AddGameObject(std::move(go));
 
