@@ -1,5 +1,15 @@
 #include "Transform.h"
 
+dae::Transform::Transform()
+	: Transform{ glm::vec3{0,0,0} }
+{
+}
+
+dae::Transform::Transform(const glm::vec3& position)
+	: m_position{position}
+{
+}
+
 void dae::Transform::SetPosition(const float x, const float y, const float z)
 {
 	m_position.x = x;

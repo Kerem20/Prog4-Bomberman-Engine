@@ -15,4 +15,3 @@ void Scene::Update()
 void Scene::Render() const
 {
 }
-
