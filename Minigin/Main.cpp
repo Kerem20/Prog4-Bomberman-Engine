@@ -29,8 +29,9 @@ static void load()
 	auto go = std::make_unique<GameObject>();
 	go->AddComponent<Component>();
 
-	scene.AddGameObject(std::move(go));
+	go->RemoveComponent<Component>();
 
+	scene.AddGameObject(std::move(go));
 
 	//go->SetTexture("background.png");
 	//scene.AddGameObject(std::move(go));

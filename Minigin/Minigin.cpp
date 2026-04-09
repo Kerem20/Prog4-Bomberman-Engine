@@ -17,7 +17,7 @@
 
 SDL_Window* g_window{};
 
-void LogSDLVersion(const std::string& message, int major, int minor, int patch)
+static void LogSDLVersion(const std::string& message, int major, int minor, int patch)
 {
 #if WIN32
 	std::stringstream ss;
@@ -31,7 +31,7 @@ void LogSDLVersion(const std::string& message, int major, int minor, int patch)
 #ifdef __EMSCRIPTEN__
 #include "emscripten.h"
 
-void LoopCallback(void* arg)
+static void LoopCallback(void* arg)
 {
 	static_cast<dae::Minigin*>(arg)->RunOneFrame();
 }
@@ -40,7 +40,7 @@ void LoopCallback(void* arg)
 // Why bother with this? Because sometimes students have a different SDL version installed on their pc.
 // That is not a problem unless for some reason the dll's from this project are not copied next to the exe.
 // These entries in the debug output help to identify that issue.
-void PrintSDLVersion()
+static void PrintSDLVersion()
 {
 	LogSDLVersion("Compiled with SDL", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_MICRO_VERSION);
 	int version = SDL_GetVersion();
@@ -93,6 +93,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	const double fixedTimeStep = 1.0 / 60.0;
 	double accumulator = 0.0;
 
+	auto& sceneManager = SceneManager::GetInstance();
+
 #ifndef __EMSCRIPTEN__
 	// Main loop, runs until the InputManager detects a quit event.
 	while (!m_quit)
@@ -107,12 +109,15 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		// PHYSICS:
 		while (accumulator >= fixedTimeStep)
 		{
-			SceneManager::GetInstance().FixedUpdate();
+			sceneManager.FixedUpdate();
 			accumulator = 0;
 		}
 		
 		// UPDATE:
-		SceneManager::GetInstance().Update();
+		sceneManager.Update();
+
+		// LATE UPDATE:
+		sceneManager.LateUpdate();
 
 		// RENDERING:
 		Renderer::GetInstance().Render();

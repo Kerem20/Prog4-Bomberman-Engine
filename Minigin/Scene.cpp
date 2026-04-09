@@ -16,6 +16,13 @@ void dae::Scene::Update()
 	}
 }
 
+void dae::Scene::LateUpdate()
+{
+	for (auto& go : m_gameObjects) {
+		go->LateUpdate();
+	}
+}
+
 void dae::Scene::Render() const
 {
 	for (auto& go : m_gameObjects) {

@@ -18,6 +18,7 @@ namespace dae
 
 		void FixedUpdate();
 		void Update();
+		void LateUpdate();
 		void Render() const;
 
 		void AddGameObject(std::unique_ptr<GameObject> gameObject);
