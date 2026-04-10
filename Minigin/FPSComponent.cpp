@@ -7,14 +7,14 @@
 #include <iomanip>
 
 FPSComponent::FPSComponent(const GameObject& gameobject, const std::shared_ptr<dae::Font> font)
-	: Component(gameobject)
-	, m_elapsedMS{0}
+	: TextComponent(gameobject, "", font)
+	, m_elapsedMS{ 0 }
 	, m_clock{ dae::Clock::GetInstance() }
 {
 	m_previousFPS = m_clock.GetFPS();
 
 	std::string fps = FloatToStringFPS(m_previousFPS);
-	m_fpsCounter = std::make_unique<dae::TextObject>(fps, font);
+	m_textObject->SetText(fps);
 }
 
 void FPSComponent::Update()
@@ -26,19 +26,14 @@ void FPSComponent::Update()
 	if (m_elapsedMS >= 0.5) {
 		if (newFPS != m_previousFPS)
 		{
-			m_fpsCounter.get()->SetText(FloatToStringFPS(newFPS));
+			m_textObject->SetText(FloatToStringFPS(newFPS) + " FPS");
 			m_previousFPS = newFPS;
 		}
 
 		m_elapsedMS = 0;
 	}
 
-	m_fpsCounter.get()->Update();
-}
-
-void FPSComponent::Render()
-{
-	m_fpsCounter.get()->Render();
+	m_textObject->Update();
 }
 
 std::string FPSComponent::FloatToStringFPS(const float fps)

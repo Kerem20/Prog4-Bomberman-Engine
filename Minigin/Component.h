@@ -7,7 +7,6 @@ class GameObject;
 class Component
 {
 public:
-	explicit Component(const GameObject& gameObject);
 	virtual ~Component() = default;
 
 	Component(const Component& other) = delete;
@@ -20,6 +19,8 @@ public:
 	virtual void LateUpdate() {};
 	virtual void Render() {};
 protected:
+	// init component only privately within derived
+	explicit Component(const GameObject& gameObject);
 	const GameObject& m_gameObject;
 private:
 };

@@ -28,30 +28,29 @@ static void load()
 	dae::Clock::GetInstance().Init();
 
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
-	std::shared_ptr<dae::Font> font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf",100);
+	std::shared_ptr<dae::Font> font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 50);
+	std::shared_ptr<dae::Font> titleFont = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 
-	auto go = std::make_unique<GameObject>();
-	go->AddComponent<Component>();
-	go->RemoveComponent<Component>();
+	// Add background object
+	auto background = std::make_unique<GameObject>();
+	background->AddComponent<RenderComponent>("background.png");
+	background->AddComponent<FPSComponent>(font);
 
-	go->AddComponent<RenderComponent>("background.png");
-	go->AddComponent<FPSComponent>(font);
+	scene.AddGameObject(std::move(background));
 
-	scene.AddGameObject(std::move(go));
+	// Add Logo object
+	auto logo = std::make_unique<GameObject>();
+	logo->AddComponent<RenderComponent>("logo.png");
+	logo->m_transform.SetPosition(358, 180);
+	
+	scene.AddGameObject(std::move(logo));
 
-	//go->SetTexture("background.png");
-	//scene.AddGameObject(std::move(go));
+	// Add Title object
+	auto title = std::make_unique<GameObject>();
+	title->AddComponent<TextComponent>("Programming 4 Assignment", titleFont);
+	title->m_transform.SetPosition(292, 20);
 
-	//go = std::make_unique<dae::GameObject>();
-	//go->SetTexture("logo.png");
-	//go->SetPosition(358, 180);
-	//scene.AddGameObject(std::move(go));
-
-	//auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	//auto to = std::make_unique<dae::TextObject>("Programming 4 Assignment", font);
-	//to->SetColor({ 255, 255, 0, 255 });
-	//to->SetPosition(292, 20);
-	//scene.AddGameObject(std::move(to));
+	scene.AddGameObject(std::move(title));
 }
 
 int main(int, char*[]) {
