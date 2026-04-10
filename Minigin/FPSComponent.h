@@ -15,8 +15,10 @@ public:
 private:
 	std::unique_ptr<dae::TextObject> m_fpsCounter;
 
-	int m_previousFPS;
+	float m_previousFPS;
 	float m_elapsedMS;
 
 	dae::Clock& m_clock;
+
+	std::string FloatToStringFPS(const float fps);
 };
