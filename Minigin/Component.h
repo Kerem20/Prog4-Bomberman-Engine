@@ -16,10 +16,8 @@ public:
 	Component& operator=(Component&& other) = delete;
 
 	virtual void FixedUpdate() {};
-	virtual void Update() {
-		float f = dae::Clock::GetInstance().GetFPS();
-		std::cout << f << std::endl;
-	};
+	virtual void Update() {};
+	virtual void LateUpdate() {};
 	virtual void Render() {};
 protected:
 	const GameObject& m_gameObject;

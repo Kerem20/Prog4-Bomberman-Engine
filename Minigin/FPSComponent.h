@@ -1,0 +1,22 @@
+#pragma once
+
+#include "GameObject.h"
+#include "TextObject.h"
+#include <Font.h>
+
+class FPSComponent : public Component
+{
+public:
+	explicit FPSComponent(const GameObject& gameobject, const std::shared_ptr<dae::Font> font);
+	virtual ~FPSComponent() = default;
+
+	virtual void Update() override;
+	virtual void Render() override;
+private:
+	std::unique_ptr<dae::TextObject> m_fpsCounter;
+
+	int m_previousFPS;
+	float m_elapsedMS;
+
+	dae::Clock& m_clock;
+};

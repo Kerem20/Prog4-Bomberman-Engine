@@ -10,9 +10,12 @@
 #include "ResourceManager.h"
 #include "TextObject.h"
 #include "Scene.h"
+#include "Font.h"
 
 #include <filesystem>
 #include <GameObject.h>
+#include <RenderComponent.h>
+#include <FPSComponent.h>
 namespace fs = std::filesystem;
 
 /// <summary>
@@ -25,11 +28,14 @@ static void load()
 	dae::Clock::GetInstance().Init();
 
 	auto& scene = dae::SceneManager::GetInstance().CreateScene();
+	std::shared_ptr<dae::Font> font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf",100);
 
 	auto go = std::make_unique<GameObject>();
 	go->AddComponent<Component>();
-
 	go->RemoveComponent<Component>();
+
+	go->AddComponent<RenderComponent>("background.png");
+	go->AddComponent<FPSComponent>(font);
 
 	scene.AddGameObject(std::move(go));
 
